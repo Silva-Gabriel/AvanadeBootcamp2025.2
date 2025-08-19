@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build Auth.Api",
+      "command": "dotnet",
+      "type": "process",
+      "args": ["build", "Auth/api/Auth.Api.csproj"],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build AvaSales.Api",
+      "command": "dotnet",
+      "type": "process",
+      "args": ["build", "AvaSales/api/AvaSales.Api.csproj"],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build AvaStock.Api",
+      "command": "dotnet",
+      "type": "process",
+      "args": ["build", "AvaStock/api/AvaStock.Api.csproj"],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}
