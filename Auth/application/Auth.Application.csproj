@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\crosscutting\Auth.Crosscutting.csproj" />
+    <ProjectReference Include="..\domain\Auth.Domain.csproj" />
+    <ProjectReference Include="..\infrastructure\Auth.Infrastructure.csproj" />
+    <ProjectReference Include="..\services\Auth.Services.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

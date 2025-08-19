@@ -1,0 +1,44 @@
+{
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Debug All APIs",
+      "configurations": ["Auth API", "AvaSales API", "AvaStock API"]
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Auth API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Auth.Api",
+      "program": "${workspaceFolder}/Auth/api/bin/Debug/net8.0/Auth.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Auth/api",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "AvaSales API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build AvaSales.Api",
+      "program": "${workspaceFolder}/AvaSales/api/bin/Debug/net8.0/AvaSales.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/AvaSales/api",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "AvaStock API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build AvaStock.Api",
+      "program": "${workspaceFolder}/AvaStock/api/bin/Debug/net8.0/AvaStock.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/AvaStock/api",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    }
+  ]
+}

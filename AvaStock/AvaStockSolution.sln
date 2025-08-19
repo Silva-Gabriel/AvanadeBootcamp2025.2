@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaStock.Api", "api\AvaStock.Api.csproj", "{6812D3AC-6DCA-4769-91CB-E4386FAA44E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaStock.Crosscutting", "crosscutting\AvaStock.Crosscutting.csproj", "{FBADFC74-41C3-4D77-A04F-8AE04C9F851A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaStock.Domain", "domain\AvaStock.Domain.csproj", "{18741F2B-FC53-4F2C-9CD2-BAC8E81E6A73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaStock.Infrastructure", "infrastructure\AvaStock.Infrastructure.csproj", "{49D629E6-83E9-4DAE-B2F3-F64F18EC6EF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaStock.Services", "services\AvaStock.Services.csproj", "{FABC97BE-D9E8-489E-8A72-73F704B6A1A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaStock.Application", "application\AvaStock.Application.csproj", "{C80FD59C-D134-4329-8DB0-8BFCB22D1AC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6812D3AC-6DCA-4769-91CB-E4386FAA44E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6812D3AC-6DCA-4769-91CB-E4386FAA44E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6812D3AC-6DCA-4769-91CB-E4386FAA44E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6812D3AC-6DCA-4769-91CB-E4386FAA44E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBADFC74-41C3-4D77-A04F-8AE04C9F851A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBADFC74-41C3-4D77-A04F-8AE04C9F851A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBADFC74-41C3-4D77-A04F-8AE04C9F851A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBADFC74-41C3-4D77-A04F-8AE04C9F851A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18741F2B-FC53-4F2C-9CD2-BAC8E81E6A73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18741F2B-FC53-4F2C-9CD2-BAC8E81E6A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18741F2B-FC53-4F2C-9CD2-BAC8E81E6A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18741F2B-FC53-4F2C-9CD2-BAC8E81E6A73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49D629E6-83E9-4DAE-B2F3-F64F18EC6EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49D629E6-83E9-4DAE-B2F3-F64F18EC6EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49D629E6-83E9-4DAE-B2F3-F64F18EC6EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49D629E6-83E9-4DAE-B2F3-F64F18EC6EF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FABC97BE-D9E8-489E-8A72-73F704B6A1A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FABC97BE-D9E8-489E-8A72-73F704B6A1A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FABC97BE-D9E8-489E-8A72-73F704B6A1A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FABC97BE-D9E8-489E-8A72-73F704B6A1A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C80FD59C-D134-4329-8DB0-8BFCB22D1AC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C80FD59C-D134-4329-8DB0-8BFCB22D1AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C80FD59C-D134-4329-8DB0-8BFCB22D1AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C80FD59C-D134-4329-8DB0-8BFCB22D1AC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
