@@ -1,16 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\crosscutting\Auth.Crosscutting.csproj" />
-    <ProjectReference Include="..\domain\Auth.Domain.csproj" />
-    <ProjectReference Include="..\infrastructure\Auth.Infrastructure.csproj" />
-    <ProjectReference Include="..\services\Auth.Services.csproj" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\domain\Auth.Domain.csproj" />
+    <ProjectReference Include="..\infrastructure\Auth.Infrastructure.csproj" />
+    <ProjectReference Include="..\services\Auth.Services.csproj" />
+  </ItemGroup>
 
 </Project>
