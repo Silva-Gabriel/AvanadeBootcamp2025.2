@@ -6,4 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\infrastructure\AvaStock.Infrastructure.csproj" />
+    <ProjectReference Include="..\services\AvaStock.Services.csproj" />
+    <ProjectReference Include="..\domain\AvaStock.Domain.csproj" />
+    <ProjectReference Include="..\application\AvaStock.Application.csproj" />
+  </ItemGroup>
+
 </Project>
