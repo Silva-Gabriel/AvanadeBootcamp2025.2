@@ -1,7 +1,6 @@
 using domain.interfaces.repository.read.product;
 using System.Data;
 using Dapper;
-using domain.models.product;
 using domain.models.product.parameters;
 using domain.dtos.product;
 
@@ -11,44 +10,29 @@ namespace infrastructure.repository.product.read
     {
         private readonly IDbConnection Connection = con;
 
-        // futura paginação
-        public async Task<IEnumerable<ProductDetailDTO>> GetAllAsync()
+        public async Task<ProductDetailDTO?> GetDetailByIdAsync(long id)
         {
+            var parameters = new DynamicParameters();
             var sql = $@"
                 SELECT product.Id AS [{nameof(ProductDetailDTO.Id)}],
                        product.Name AS [{nameof(ProductDetailDTO.Name)}],
                        product.Description AS [{nameof(ProductDetailDTO.Description)}],
                        category.Name AS [{nameof(ProductDetailDTO.Category)}],
                        supplier.Name AS [{nameof(ProductDetailDTO.Supplier)}],
-                       supplier.CNPJ AS [{nameof(ProductDetailDTO.SupplierCNPJ)}],
-                       product.PriceCost AS [{nameof(ProductDetailDTO.PriceCost)}],
-                       product.PriceSale AS [{nameof(ProductDetailDTO.PriceSale)}],
-                       product.CurrentStock AS [{nameof(ProductDetailDTO.CurrentStock)}]
+                       supplier.Phone AS [{nameof(ProductDetailDTO.SupplierPhone)}],
+                       (product.PriceSale - product.PriceCost) AS [{nameof(ProductDetailDTO.Income)}],
+                       product.CurrentStock AS [{nameof(ProductDetailDTO.CurrentStock)}],
+                       orderItem.Quantity AS [{nameof(ProductDetailDTO.SalesQuantity)}]
                 FROM TB_Product product
                 INNER JOIN TB_Category category ON product.CategoryId = category.CategoryId
                 INNER JOIN TB_Supplier supplier ON product.SupplierId = supplier.SupplierId
-            ";
-            return await Connection.QueryAsync<ProductDetailDTO>(sql);
-        }
-
-        public async Task<ProductDetailDTO?> GetByIdAsync(long id)
-        {
-            var sql = $@"
-                SELECT product.Id AS [{nameof(ProductDetailDTO.Id)}],
-                       product.Name AS [{nameof(ProductDetailDTO.Name)}],
-                       product.Description AS [{nameof(ProductDetailDTO.Description)}],
-                       category.Name AS [{nameof(ProductDetailDTO.Category)}],
-                       supplier.Name AS [{nameof(ProductDetailDTO.Supplier)}],
-                       supplier.CNPJ AS [{nameof(ProductDetailDTO.SupplierCNPJ)}],
-                       product.PriceCost AS [{nameof(ProductDetailDTO.PriceCost)}],
-                       product.PriceSale AS [{nameof(ProductDetailDTO.PriceSale)}],
-                       product.CurrentStock AS [{nameof(ProductDetailDTO.CurrentStock)}]
-                FROM TB_Product product
-                INNER JOIN TB_Category category ON product.CategoryId = category.CategoryId
-                INNER JOIN TB_Supplier supplier ON product.SupplierId = supplier.SupplierId
+                INNER JOIN TB_OrderItemSale orderItem ON product.Id = orderItem.ProductId
                 WHERE product.Id = @Id
             ";
-            return await Connection.QueryFirstOrDefaultAsync<ProductDetailDTO>(sql, new { Id = id });
+
+            parameters.Add("Id", id);
+
+            return await Connection.QueryFirstOrDefaultAsync<ProductDetailDTO?>(sql, parameters);
         }
 
         public async Task<IEnumerable<SearchProductDTO>> SearchProductAsync(SearchProductParameter parameters)

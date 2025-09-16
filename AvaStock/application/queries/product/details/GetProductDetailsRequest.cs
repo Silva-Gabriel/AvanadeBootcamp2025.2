@@ -1,11 +1,9 @@
-using domain.dtos.product;
-using domain.models.product;
 using MediatR;
 
 namespace application.queries.product.details
 {
-    public class GetProductDetailsRequest : ProductDetailDTO, IRequest<GetProductDetailsResponse>
+    public class GetProductDetailsRequest : IRequest<GetProductDetailsResponse>
     {
-        
+        public long ProductId { get; set; }
     }
 }

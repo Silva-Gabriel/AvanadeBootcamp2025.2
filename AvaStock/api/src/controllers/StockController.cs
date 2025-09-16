@@ -33,7 +33,7 @@ namespace api.src.controllers
         [Authorize]
         public async Task<GetProductDetailsResponse> GetProductDetails(long productId)
         {
-            var result = await Mediator.Send(new GetProductDetailsRequest { });
+            var result = await Mediator.Send(new GetProductDetailsRequest { ProductId = productId});
 
             return result;
         }
