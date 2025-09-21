@@ -7,33 +7,33 @@ SET NOCOUNT ON;
 GO
 
 -- Categoria
-INSERT INTO TB_Category (Name, Description)
+INSERT INTO TB_PROD_CATEGORY (Name, Description)
 VALUES ('Eletrônicos', 'Produtos eletrônicos em geral'),
        ('Acessórios', 'Acessórios para dispositivos eletrônicos');
 GO
 
 -- Fornecedor
-INSERT INTO TB_Supplier (Name, CNPJ, Phone, Email)
+INSERT INTO TB_PROD_SUPPLIER (Name, CNPJ, Phone, Email)
 VALUES ('Fornecedor ABC', '12345678000199', '(11) 99999-0001', 'contato@abc.com'),
        ('Fornecedor XYZ', '98765432000188', '(21) 88888-0002', 'vendas@xyz.com');
 GO
 
 -- Produto
-INSERT INTO TB_Product (SupplierId, CategoryId, Name, Description, PriceCost, PriceSale, CurrentStock)
+INSERT INTO TB_PROD_PRODUCT (SupplierId, CategoryId, Name, Description, PriceCost, PriceSale, CurrentStock)
 VALUES (1, 1, 'Fone Bluetooth', 'Fone de ouvido sem fio', 50.00, 99.90, 100),
        (2, 2, 'Capa Protetora', 'Capa para smartphone', 10.00, 29.90, 200),
        (1, 1, 'Carregador USB-C', 'Carregador rápido USB-C 20W', 20.00, 49.90, 150);
 GO
 
 -- Item de pedido de venda
-INSERT INTO TB_OrderItemSale (OrderId, ProductId, Quantity, UnityPrice)
+INSERT INTO TB_PROD_ORDER (OrderId, ProductId, Quantity, UnityPrice)
 VALUES (1001, 1, 2, 99.90),
        (1001, 2, 1, 29.90),
        (1002, 3, 3, 49.90);
 GO
 
 -- Histórico de estoque
-INSERT INTO TB_StockHistory (ProductId, ReferenceId, Type, Quantity, CreatedAt, Origin)
+INSERT INTO TB_HISTORY (ProductId, ReferenceId, Type, Quantity, CreatedAt, Origin)
 VALUES (1, 1001, 2, 2, SYSUTCDATETIME(), 1), -- Saída (venda)
        (2, 1001, 2, 1, SYSUTCDATETIME(), 1), -- Saída (venda)
        (3, NULL, 1, 150, SYSUTCDATETIME(), 2), -- Entrada (compra)

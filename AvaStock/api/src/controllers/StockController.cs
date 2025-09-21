@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using application.queries.product.details;
 using domain.models.product.parameters;
+using application.commands.product.create;
 
 namespace api.src.controllers
 {
@@ -33,9 +34,17 @@ namespace api.src.controllers
         [Authorize]
         public async Task<GetProductDetailsResponse> GetProductDetails(long productId)
         {
-            var result = await Mediator.Send(new GetProductDetailsRequest { ProductId = productId});
+            var result = await Mediator.Send(new GetProductDetailsRequest { ProductId = productId });
 
             return result;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Post([FromBody] CreateProductRequest request)
+        {
+            var result = Mediator.Send(request);
+            return Ok(result);
         }
     }
 }

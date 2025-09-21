@@ -19,10 +19,10 @@ GO
 /* ========================================
    Category (Categoria de produto)
    ======================================== */
-IF OBJECT_ID('TB_Category','U') IS NULL
+IF OBJECT_ID('TB_PROD_CATEGORY','U') IS NULL
 BEGIN
     -- Criar tabela de categorias
-    CREATE TABLE TB_Category
+    CREATE TABLE TB_PROD_CATEGORY
     (
         CategoryId   BIGINT        NOT NULL IDENTITY(1,1), -- PK (autonumeração)
         Name         NVARCHAR(120) NOT NULL,               -- Nome da categoria
@@ -30,21 +30,21 @@ BEGIN
     );
 
     -- PK nomeada
-    ALTER TABLE TB_Category
+    ALTER TABLE TB_PROD_CATEGORY
         ADD CONSTRAINT PK_Category PRIMARY KEY CLUSTERED (CategoryId);
 
     -- Nome da categoria único (opcional; remova se não desejar restringir)
-    CREATE UNIQUE INDEX UX_Category_Name ON TB_Category(Name);
+    CREATE UNIQUE INDEX UX_Category_Name ON TB_PROD_CATEGORY(Name);
 END
 GO
 
 /* ========================================
    Supplier (Fornecedor)
    ======================================== */
-IF OBJECT_ID('TB_Supplier','U') IS NULL
+IF OBJECT_ID('TB_PROD_SUPPLIER','U') IS NULL
 BEGIN
     -- Criar tabela de fornecedores
-    CREATE TABLE TB_Supplier
+    CREATE TABLE TB_PROD_SUPPLIER
     (
         SupplierId BIGINT         NOT NULL IDENTITY(1,1), -- PK
         Name       NVARCHAR(160)  NOT NULL,               -- Razão/Nome
@@ -54,22 +54,22 @@ BEGIN
     );
 
     -- PK nomeada
-    ALTER TABLE TB_Supplier
+    ALTER TABLE TB_PROD_SUPPLIER
         ADD CONSTRAINT PK_Supplier PRIMARY KEY CLUSTERED (SupplierId);
 
     -- Unicidade de CNPJ quando informado (usa índice filtrado para permitir múltiplos NULLs)
-    IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'UX_Supplier_CNPJ' AND object_id = OBJECT_ID('TB_Supplier'))
-        CREATE UNIQUE INDEX UX_Supplier_CNPJ ON TB_Supplier(CNPJ) WHERE CNPJ IS NOT NULL;
+    IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'UX_Supplier_CNPJ' AND object_id = OBJECT_ID('TB_PROD_SUPPLIER'))
+        CREATE UNIQUE INDEX UX_Supplier_CNPJ ON TB_PROD_SUPPLIER(CNPJ) WHERE CNPJ IS NOT NULL;
 END
 GO
 
 /* ========================================
    Product (Produto)
    ======================================== */
-IF OBJECT_ID('TB_Product','U') IS NULL
+IF OBJECT_ID('TB_PROD_PRODUCT','U') IS NULL
 BEGIN
     -- Criar tabela de produtos
-    CREATE TABLE TB_Product
+    CREATE TABLE TB_PROD_PRODUCT
     (
         Id           BIGINT         NOT NULL IDENTITY(1,1), -- PK
         SupplierId   BIGINT         NOT NULL,               -- FK -> Supplier
@@ -82,45 +82,45 @@ BEGIN
     );
 
     -- PK nomeada
-    ALTER TABLE TB_Product
+    ALTER TABLE TB_PROD_PRODUCT
         ADD CONSTRAINT PK_Product PRIMARY KEY CLUSTERED (Id);
 
     -- FK -> Supplier
-    ALTER TABLE TB_Product
+    ALTER TABLE TB_PROD_PRODUCT
         ADD CONSTRAINT FK_Product_Supplier
             FOREIGN KEY (SupplierId)
-        REFERENCES TB_Supplier(SupplierId);
+        REFERENCES TB_PROD_SUPPLIER(SupplierId);
 
     -- FK -> Category
-    ALTER TABLE TB_Product
+    ALTER TABLE TB_PROD_PRODUCT
         ADD CONSTRAINT FK_Product_Category
             FOREIGN KEY (CategoryId)
-        REFERENCES TB_Category(CategoryId);
+        REFERENCES TB_PROD_CATEGORY(CategoryId);
 
     -- Regras de domínio (CHECK)
-    ALTER TABLE TB_Product
+    ALTER TABLE TB_PROD_PRODUCT
         ADD CONSTRAINT CK_Product_PriceCost_NonNegative CHECK (PriceCost >= 0);
 
-    ALTER TABLE TB_Product
+    ALTER TABLE TB_PROD_PRODUCT
         ADD CONSTRAINT CK_Product_PriceSale_NonNegative CHECK (PriceSale >= 0);
 
-    ALTER TABLE TB_Product
+    ALTER TABLE TB_PROD_PRODUCT
         ADD CONSTRAINT CK_Product_CurrentStock_NonNegative CHECK (CurrentStock >= 0);
 
     -- Índices úteis
-    CREATE INDEX IX_Product_Name ON TB_Product(Name);
-    CREATE INDEX IX_Product_CategoryId ON TB_Product(CategoryId);
-    CREATE INDEX IX_Product_SupplierId ON TB_Product(SupplierId);
+    CREATE INDEX IX_Product_Name ON TB_PROD_PRODUCT(Name);
+    CREATE INDEX IX_Product_CategoryId ON TB_PROD_PRODUCT(CategoryId);
+    CREATE INDEX IX_Product_SupplierId ON TB_PROD_PRODUCT(SupplierId);
 END
 GO
 
 /* ========================================
    OrderItemSale (Item de pedido de venda)
    ======================================== */
-IF OBJECT_ID('TB_OrderItemSale','U') IS NULL
+IF OBJECT_ID('TB_PROD_ORDER','U') IS NULL
 BEGIN
     -- Criar tabela de itens de pedido (não há tabela Order anexada neste modelo)
-    CREATE TABLE TB_OrderItemSale
+    CREATE TABLE TB_PROD_ORDER
     (
         ItemId     BIGINT         NOT NULL IDENTITY(1,1), -- PK
         OrderId    BIGINT         NOT NULL,               -- Referência a pedido externo (sem FK aqui)
@@ -130,35 +130,35 @@ BEGIN
     );
 
     -- PK nomeada
-    ALTER TABLE TB_OrderItemSale
+    ALTER TABLE TB_PROD_ORDER
         ADD CONSTRAINT PK_OrderItemSale PRIMARY KEY CLUSTERED (ItemId);
 
     -- FK -> Product
-    ALTER TABLE TB_OrderItemSale
+    ALTER TABLE TB_PROD_ORDER
         ADD CONSTRAINT FK_OrderItemSale_Product
             FOREIGN KEY (ProductId)
-        REFERENCES TB_Product(Id);
+        REFERENCES TB_PROD_PRODUCT(Id);
 
     -- Regras de domínio
-    ALTER TABLE TB_OrderItemSale
+    ALTER TABLE TB_PROD_ORDER
         ADD CONSTRAINT CK_OrderItemSale_Quantity_Positive CHECK (Quantity > 0);
 
-    ALTER TABLE TB_OrderItemSale
+    ALTER TABLE TB_PROD_ORDER
         ADD CONSTRAINT CK_OrderItemSale_UnityPrice_NonNegative CHECK (UnityPrice >= 0);
 
     -- Índices úteis
-    CREATE INDEX IX_OrderItemSale_OrderId ON TB_OrderItemSale(OrderId);
-    CREATE INDEX IX_OrderItemSale_ProductId ON TB_OrderItemSale(ProductId);
+    CREATE INDEX IX_OrderItemSale_OrderId ON TB_PROD_ORDER(OrderId);
+    CREATE INDEX IX_OrderItemSale_ProductId ON TB_PROD_ORDER(ProductId);
 END
 GO
 
 /* ========================================
    StockHistory (Histórico de movimentação de estoque)
    ======================================== */
-IF OBJECT_ID('TB_StockHistory','U') IS NULL
+IF OBJECT_ID('TB_HISTORY','U') IS NULL
 BEGIN
     -- Criar tabela de histórico (ledger simples)
-    CREATE TABLE TB_StockHistory
+    CREATE TABLE TB_HISTORY
     (
         HistoryId   BIGINT         NOT NULL IDENTITY(1,1), -- PK
         ProductId   BIGINT         NOT NULL,               -- FK -> Product
@@ -170,24 +170,24 @@ BEGIN
     );
 
     -- PK nomeada
-    ALTER TABLE TB_StockHistory
+    ALTER TABLE TB_HISTORY
         ADD CONSTRAINT PK_StockHistory PRIMARY KEY CLUSTERED (HistoryId);
 
     -- FK -> Product
-    ALTER TABLE TB_StockHistory
+    ALTER TABLE TB_HISTORY
         ADD CONSTRAINT FK_StockHistory_Product
             FOREIGN KEY (ProductId)
-        REFERENCES TB_Product(Id);
+        REFERENCES TB_PROD_PRODUCT(Id);
 
     -- Regras de domínio (ajuste conforme sua enumeração real)
-    ALTER TABLE TB_StockHistory
+    ALTER TABLE TB_HISTORY
         ADD CONSTRAINT CK_StockHistory_Type_Valid CHECK (Type IN (1,2,3));
 
-    ALTER TABLE TB_StockHistory
+    ALTER TABLE TB_HISTORY
         ADD CONSTRAINT CK_StockHistory_Quantity_Positive CHECK (Quantity > 0);
 
     -- Índices úteis para consultas por produto e data
-    CREATE INDEX IX_StockHistory_Product ON TB_StockHistory(ProductId);
-    CREATE INDEX IX_StockHistory_CreatedAt ON TB_StockHistory(CreatedAt);
+    CREATE INDEX IX_StockHistory_Product ON TB_HISTORY(ProductId);
+    CREATE INDEX IX_StockHistory_CreatedAt ON TB_HISTORY(CreatedAt);
 END
 GO

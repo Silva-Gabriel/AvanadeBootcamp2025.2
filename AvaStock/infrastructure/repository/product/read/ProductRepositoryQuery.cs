@@ -23,10 +23,10 @@ namespace infrastructure.repository.product.read
                        (product.PriceSale - product.PriceCost) AS [{nameof(ProductDetailDTO.Income)}],
                        product.CurrentStock AS [{nameof(ProductDetailDTO.CurrentStock)}],
                        orderItem.Quantity AS [{nameof(ProductDetailDTO.SalesQuantity)}]
-                FROM TB_Product product
-                INNER JOIN TB_Category category ON product.CategoryId = category.CategoryId
-                INNER JOIN TB_Supplier supplier ON product.SupplierId = supplier.SupplierId
-                INNER JOIN TB_OrderItemSale orderItem ON product.Id = orderItem.ProductId
+                FROM TB_PROD_PRODUCT product
+                INNER JOIN TB_PROD_CATEGORY category ON product.CategoryId = category.CategoryId
+                INNER JOIN TB_PROD_SUPPLIER supplier ON product.SupplierId = supplier.SupplierId
+                INNER JOIN TB_PROD_ORDER orderItem ON product.Id = orderItem.ProductId
                 WHERE product.Id = @Id
             ";
 
@@ -44,9 +44,9 @@ namespace infrastructure.repository.product.read
                        product.Description AS [{nameof(SearchProductParameter.Description)}],
                        category.Name AS [{nameof(SearchProductParameter.Category)}],
                        supplier.Name AS [{nameof(SearchProductParameter.Supplier)}]
-                FROM TB_Product product
-                INNER JOIN TB_Category category ON product.CategoryId = category.CategoryId
-                INNER JOIN TB_Supplier supplier ON product.SupplierId = supplier.SupplierId
+                FROM TB_PROD_PRODUCT product
+                INNER JOIN TB_PROD_CATEGORY category ON product.CategoryId = category.CategoryId
+                INNER JOIN TB_PROD_SUPPLIER supplier ON product.SupplierId = supplier.SupplierId
             ");
 
             var whereBuilder = new System.Text.StringBuilder();

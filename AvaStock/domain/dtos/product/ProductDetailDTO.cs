@@ -22,7 +22,7 @@ namespace domain.dtos.product
         [JsonPropertyName("CelularFornecedor")]
         public string SupplierPhone { get; set; }
 
-        [JsonPropertyName("Lucro")]
+        [JsonPropertyName("LucroPorUnidade")]
         public decimal Income { get; set; }
 
         [JsonPropertyName("Estoque")]
